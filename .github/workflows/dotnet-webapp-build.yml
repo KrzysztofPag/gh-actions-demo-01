@@ -1,0 +1,20 @@
+name: dotnet-webapp-build
+# Controls when the workflow will run
+on:
+  push:
+    paths:
+      - '.github/workflows/dotnet-webapp-build.yml'
+      - 'dotnetwebapp/MyWebApp/**'
+  workflow_dispatch:
+jobs:
+    build:
+        name: Build and Test .NET Web App
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - run: dotnet --list-runtimes
+          - run: dotnet list-sdks
+          - run: dotnet build
+            working-directory: ./dotnetwebapp/MyWebApp
+          - run: dotnet test
+            working-directory: ./dotnetwebapp/MyWebApp
