@@ -10,9 +10,24 @@ on:
   #push:
   schedule:
     - cron: "*/5 * * * *"
-          # Allows you to run this workflow manually from the Actions tab
+    # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
+   inputs:
+     customer:
+       description: 'Customer name'
+       required: true
+       default: 'Default Customer'
+       type: choice
+       options:
+         - Default Customer
+         - Customer A
+         - Customer B
+         - Customer C
+     operator_name:
+       description: 'Operator name'
+       required: true
+       default: 'Default Operator'
+       type: string
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -39,3 +54,11 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: TEst input parameters
+        run: |
+          echo "Customer: $CUSTOMER"
+          echo "Operator Name: $OPERATOR_NAME"
+        env:
+          CUSTOMER: ${{ github.event.inputs.customer }}
+          OPERATOR_NAME: ${{ github.event.inputs.operator_name }}
