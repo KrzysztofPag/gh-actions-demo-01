@@ -26,3 +26,11 @@ jobs:
                   python-version: '3.13'
             - name: display Python version
               run: python --version
+            - name: Install dependencies
+              uses: py-actions/py-dependency-install@v4
+              with:
+                  path: py-upper/requirements.txt  
+                  update-pip: true
+            - name: Run Python tests
+              working-directory: py-upper
+              run: pytest -v
