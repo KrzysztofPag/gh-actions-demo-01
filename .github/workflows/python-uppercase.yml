@@ -12,14 +12,28 @@ jobs:
         steps:
             - name: Checkout python version
               run: python --version
+
             - name: Dusplay current directory
               run: pwd
+
             - name: List files in current directory
               run: ls -R
+
+            - name: configure cache
+              uses: actions/cache@v4
+              with:
+                            path: ~/.cache/pip
+                            key: ${{ runner.os }}-pip-${{ hashFiles('py-upper/requirements.txt') }}
+                            restore-keys: |
+                                ${{ runner.os }}-pip-
+
+
             - name: Checkout repository
               uses: actions/checkout@v4
+
             - name: List files in repository
               run: ls -R
+
             - name: Set up Python
               uses: actions/setup-python@v4
               with:
@@ -36,3 +50,4 @@ jobs:
               run: pytest -v
             - name: Check docker version
               run: docker --version
+
