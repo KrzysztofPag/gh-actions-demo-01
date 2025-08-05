@@ -34,3 +34,5 @@ jobs:
             - name: Run Python tests
               working-directory: py-upper
               run: pytest -v
+            - name: Check docker version
+              run: docker --version
